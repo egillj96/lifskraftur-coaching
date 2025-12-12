@@ -93,7 +93,11 @@ export default function AuthPage() {
 
           {/* Card */}
           <div className="rounded-2xl bg-[#0d1624]/80 border border-[#1e344e] px-5 py-6 shadow-xl shadow-black/30">
-            {mode === "signup" ? <SignupForm /> : <LoginForm />}
+            {mode === "signup" ? (
+              <SignupForm />
+            ) : (
+              <LoginForm onSwitchToSignup={() => setMode("signup")} />
+            )}
           </div>
         </div>
       </main>
@@ -171,7 +175,11 @@ function SignupForm() {
   );
 }
 
-function LoginForm() {
+type LoginFormProps = {
+  onSwitchToSignup: () => void;
+};
+
+function LoginForm({ onSwitchToSignup }: LoginFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO: Connect to your login API / NextAuth signIn()
@@ -218,12 +226,8 @@ function LoginForm() {
           Ekki með aðgang?{" "}
           <button
             type="button"
-            onClick={() => {
-              // small trick: we can’t access setMode here, so in real app you might lift state up
-              // but since this is isolated, you’ll switch to the signup tab manually for now
-              window.location.href = "/auth#signup";
-            }}
-            className="underline underline-offset-2 text-[#c2ecff]"
+            onClick={onSwitchToSignup}
+            className="underline underline-offset-2 text-[#c2ecff] hover:cursor-pointer"
           >
             Skrá mig
           </button>
