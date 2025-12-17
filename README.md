@@ -2,7 +2,7 @@ Lífskraftur – Fjarþjálfun
 
 🔗 Live site: https://lifskraftur.vercel.app/
 
-Lífskraftur er vefsíða sem kynnt er fyrir fjarþjálfun markaða aðallega ungu karlmönnum sem vilja byggja upp sterkari líkamlega og andlega heilsu með einföldu, skýru og sjálfbæru kerfi.
+Lífskraftur er vefsíða þar sem boðið er upp á fjarþjálfun fyrir unga menn.
 
 📌 Project Overview
 
