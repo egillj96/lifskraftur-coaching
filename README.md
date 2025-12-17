@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Lífskraftur – Fjarþjálfun
 
-## Getting Started
+🔗 Live site: https://lifskraftur.vercel.app/
 
-First, run the development server:
+Lífskraftur er vefsíða sem kynnt er fyrir fjarþjálfun markaða aðallega ungu karlmönnum sem vilja byggja upp sterkari líkamlega og andlega heilsu með einföldu, skýru og sjálfbæru kerfi.
 
-```bash
+📌 Project Overview
+
+Þessi vefsíða inniheldur greinargóða kynningu á fjarþjálfunarþjónustu sem nær yfir:
+
+Hvað þjónustan er
+
+Fyrir hvern hún er
+
+Hvað þú færð sem viðskiptavinur
+
+Hvernig ferlið virkar
+
+Um þjálfarann (Egill Þór Jóhannsson)
+
+Verð og skráning
+
+Síminn setur áherslu á skýrleika, persónulegan stuðning og einfaldleika í stað flókins eða of-ákveðins kerfis — allt ætlað til að hjálpa viðskiptavinum að ná raunverulegum árangri með sjálfbærum hætti.
+
+🧠 Vision
+
+Lífskraftur – Fjarþjálfun sameinar styrktarþjálfun, lífsstílsbreytingar, hugarfar og stuðninginn sem þarf til að byggja upp heilsu sem endist til lengri tíma.
+
+📋 Features
+
+✔ Skýrar síður um markmið og tilgang fjarþjálfunar.
+✔ Skilgreining á viðskiptavinum sem hafa mest gagn af þjónustunni.
+✔ Stutt og aðgengileg lýsing á því hvað þátttakendur fá.
+✔ Skref-fyrir-skref lýsing á ferlinu frá skráningu til stuðnings.
+✔ Upplýsingar um þjálfarann með persónulegum bakgrunni.
+✔ Verðtöflu og skráningarform til að byrja strax.
+
+📐 Technologies Used
+
+Þessi vefsíða er static web project byggð með HTML, CSS og JavaScript, og hýst á Vercel. 
+Make a README
+
+(Bættu við tækni-uppsetningu ef þú hefur notað React, Next.js, Tailwind eða annað.)
+
+🚀 Installation & Local Development
+
+Ef þú vilt klóna verkefnið og keyra það sjálfur:
+
+Clone the repo
+
+git clone https://github.com/<your-username>/lifskraftur.git
+
+
+Install dependencies
+
+npm install
+
+
+Start local server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Opna í vafra: http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+(Breyttu skipunum eftir því hvaða tooling þú notar.)
 
-## Learn More
+🧾 Site Structure
 
-To learn more about Next.js, take a look at the following resources:
+Vefurinn er skipulagður með þessum meginhlutum:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Heim – Forsíða með skilaboðum, markmiðum og CTA (“Skráðu þig”)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Þjálfun – Hver þjónustan er fyrir og hvað hún felur í sér
 
-## Deploy on Vercel
+Um mig – Stutt kynning á þjálfara og hans reynslu
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Stofna aðgang / Innskráning – Form til að byrja ferlið
