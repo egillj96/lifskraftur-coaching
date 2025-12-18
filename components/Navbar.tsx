@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { data: session, status } = useSession();
+
+  const role = (session?.user as any)?.role as string | undefined;
+  const isAuthed = status === "authenticated";
 
   // Close menu on Escape + prevent background scroll when open
   useEffect(() => {
@@ -23,6 +28,25 @@ export default function Navbar() {
   }, [open]);
 
   const close = () => setOpen(false);
+
+  async function handleLogout() {
+    close();
+    await signOut({ callbackUrl: "/auth" });
+  }
+
+  const primaryHref = isAuthed
+    ? role === "admin"
+      ? "/admin"
+      : "/dashboard"
+    : "/auth";
+  const primaryLabel =
+    status === "loading"
+      ? "Hleð..."
+      : isAuthed
+      ? role === "admin"
+        ? "Stjórnborð"
+        : "Mín síða"
+      : "Stofna aðgang / Innskráning";
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-[#0a0f1a]/80 backdrop-blur-md border-b border-[#1e344e]">
@@ -58,12 +82,25 @@ export default function Navbar() {
           >
             Um mig
           </a>
+
+          {/* Primary action (Auth / Dashboard / Admin) */}
           <Link
-            href="/auth"
+            href={primaryHref}
             className="px-4 py-2 rounded-lg bg-[#5ecbff] hover:bg-[#7fd8ff] text-[#020813] font-medium transition shadow-md shadow-[#5ecbff]/30"
           >
-            Stofna aðgang / Innskráning
+            {primaryLabel}
           </Link>
+
+          {/* Logout when authed */}
+          {isAuthed && (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-lg border border-[#1e344e] text-[#d6eafe] hover:bg-white/5 transition"
+            >
+              Skrá út
+            </button>
+          )}
         </div>
 
         {/* MOBILE TOGGLE */}
@@ -74,7 +111,6 @@ export default function Navbar() {
           aria-expanded={open}
           onClick={() => setOpen(true)}
         >
-          {/* Hamburger icon */}
           <svg
             width="24"
             height="24"
@@ -95,14 +131,12 @@ export default function Navbar() {
       {/* MOBILE MENU (overlay) */}
       {open && (
         <div className="md:hidden">
-          {/* Backdrop */}
           <button
             aria-label="Close menu"
             className="fixed inset-0 z-40 bg-black/50"
             onClick={close}
           />
 
-          {/* Panel */}
           <div className="fixed top-0 right-0 z-50 h-dvh w-[85%] max-w-sm bg-[#0a0f1a] border-l border-[#1e344e] shadow-2xl">
             <div className="px-6 py-5 flex items-center justify-between border-b border-[#1e344e]">
               <span className="text-[#d6eafe] font-semibold">Valmynd</span>
@@ -113,7 +147,6 @@ export default function Navbar() {
                 aria-label="Close menu"
                 onClick={close}
               >
-                {/* X icon */}
                 <svg
                   width="24"
                   height="24"
@@ -156,13 +189,25 @@ export default function Navbar() {
                 Um mig
               </a>
 
+              {/* Primary action */}
               <Link
-                href="/auth"
+                href={primaryHref}
                 onClick={close}
                 className="mt-2 inline-flex items-center justify-center px-4 py-3 rounded-lg bg-[#5ecbff] hover:bg-[#7fd8ff] text-[#020813] font-medium transition shadow-md shadow-[#5ecbff]/30"
               >
-                Stofna aðgang / Innskráning
+                {primaryLabel}
               </Link>
+
+              {/* Logout */}
+              {isAuthed && (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="inline-flex items-center justify-center px-4 py-3 rounded-lg border border-[#1e344e] text-[#d6eafe] hover:bg-white/5 transition"
+                >
+                  Skrá út
+                </button>
+              )}
             </div>
           </div>
         </div>

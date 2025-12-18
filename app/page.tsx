@@ -14,8 +14,8 @@ export default function CoachingPage() {
             <span className="block text-[#5ecbff]">án þess að brenna út</span>
           </h1>
           <p className="text-lg text-[#9bb4d8] max-w-xl mx-auto">
-            Fjarþjálfun fyrir unga menn sem vilja styrkja sig líkamlega og
-            andlega með einföldu og skýru kerfi sem virkar til lengri tíma.
+            Fjarþjálfun fyrir menn sem vilja styrkja sig líkamlega og andlega
+            með einföldu og skýru kerfi sem virkar til lengri tíma.
           </p>
           <a
             href="#apply"
@@ -34,7 +34,7 @@ export default function CoachingPage() {
             Fyrir hvern er þjálfunin?
           </h2>
           <p className="text-[#a7c3e8]">
-            Þjálfunin er hönnuð fyrir unga menn sem vilja meiri styrk, aga og
+            Þjálfunin er hönnuð fyrir menn sem vilja meiri styrk, aga og
             sjálfstraust – án þess að fórna heilsu eða jafnvægi.
           </p>
           <p className="text-[#a7c3e8]">Þjálfunin er fyrir þig ef:</p>

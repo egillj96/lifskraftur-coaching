@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getSession, signIn } from "next-auth/react";
 
 export default function AuthPage() {
   const [mode, setMode] = useState<"login" | "signup">("signup");
@@ -63,10 +65,55 @@ export default function AuthPage() {
 }
 
 function SignupForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Connect to your signup API (NextAuth / custom route)
-    // For now you can console.log or toast.
+    setLoading(true);
+    setError(null);
+
+    // 1️⃣ Collect form data
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    // 2️⃣ Create user (signup)
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error ?? "Skráning mistókst");
+      setLoading(false);
+      return;
+    }
+
+    // 3️⃣ Auto-login (NO redirect yet)
+    const email = String(payload.email);
+    const password = String(payload.password);
+
+    const loginResult = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (loginResult?.error) {
+      setError("Innskráning mistókst");
+      setLoading(false);
+      return;
+    }
+
+    // 4️⃣ Read session (now user is logged in)
+    const session = await getSession();
+    const role = (session?.user as any)?.role;
+
+    // 5️⃣ Redirect by role
+    router.push(role === "admin" ? "/admin" : "/dashboard");
   };
 
   return (
@@ -137,9 +184,35 @@ type LoginFormProps = {
 };
 
 function LoginForm({ onSwitchToSignup }: LoginFormProps) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Connect to your login API / NextAuth signIn()
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const email = String(formData.get("email") ?? "");
+    const password = String(formData.get("password") ?? "");
+
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (result?.error) {
+      setError("Rangt netfang eða lykilorð");
+      setLoading(false);
+      return;
+    }
+
+    const session = await getSession();
+    const role = (session?.user as any)?.role;
+
+    router.push(role === "admin" ? "/admin" : "/dashboard");
   };
 
   return (
